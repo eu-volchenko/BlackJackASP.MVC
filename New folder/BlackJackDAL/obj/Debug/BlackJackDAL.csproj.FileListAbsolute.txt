@@ -1,0 +1,12 @@
+C:\Users\Anuitex-84\OneDrive\BlackJackPresentationLayer\BlackJackDAL\bin\Debug\BlackJackDAL.dll.config
+C:\Users\Anuitex-84\OneDrive\BlackJackPresentationLayer\BlackJackDAL\bin\Debug\BlackJackDAL.dll
+C:\Users\Anuitex-84\OneDrive\BlackJackPresentationLayer\BlackJackDAL\bin\Debug\BlackJackDAL.pdb
+C:\Users\Anuitex-84\OneDrive\BlackJackPresentationLayer\BlackJackDAL\bin\Debug\EntityFramework.dll
+C:\Users\Anuitex-84\OneDrive\BlackJackPresentationLayer\BlackJackDAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Anuitex-84\OneDrive\BlackJackPresentationLayer\BlackJackDAL\bin\Debug\EntityFramework.xml
+C:\Users\Anuitex-84\OneDrive\BlackJackPresentationLayer\BlackJackDAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Anuitex-84\OneDrive\BlackJackPresentationLayer\BlackJackDAL\obj\Debug\BlackJackDAL.csprojResolveAssemblyReference.cache
+C:\Users\Anuitex-84\OneDrive\BlackJackPresentationLayer\BlackJackDAL\obj\Debug\BlackJackDAL.csproj.CoreCompileInputs.cache
+C:\Users\Anuitex-84\OneDrive\BlackJackPresentationLayer\BlackJackDAL\obj\Debug\BlackJackDAL.csproj.CopyComplete
+C:\Users\Anuitex-84\OneDrive\BlackJackPresentationLayer\BlackJackDAL\obj\Debug\BlackJackDAL.dll
+C:\Users\Anuitex-84\OneDrive\BlackJackPresentationLayer\BlackJackDAL\obj\Debug\BlackJackDAL.pdb

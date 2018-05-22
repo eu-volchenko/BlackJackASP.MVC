@@ -1,0 +1,20 @@
+﻿body,html {
+    height: 100%;
+    width: 100%;
+    margin: 1px;
+}
+
+.img-block {
+    margin: auto;
+    padding: auto;
+    position: absolute;
+    background-image: url("/Content/Images/blackjack-table.svg");
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    left: 200px;
+    right: 200px;
+}
+

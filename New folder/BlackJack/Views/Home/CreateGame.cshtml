@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "CreateGame";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="http://kendo.cdn.telerik.com/2018.1.221/js/kendo.all.min.js"></script>
+<link rel="stylesheet" href="~/Content/game/game.css" />
+<link rel="stylesheet" href="~/Content/kendo/kendo.common.min.css">
+<link rel="stylesheet" href="~/Content/kendo/kendo.default.min.css">
+<link rel="stylesheet" href="~/Content/kendo/kendo.default.mobile.min.css">
+<link rel="stylesheet" href="~/Content/game/game.css" />
+
+<h2>CreateGame</h2>
+<div id="content">
+    <div class="row">
+        <div class="col-sm-4">
+            <label class="control-label"for="playerName">Your Name: </label>
+            <input type="text" class="form-control" id="playerName"/>
+            <br/>
+            <label class="control-label" for="dealerName">Dealer Name: </label>
+            <input type="text" id="dealerName" class="form-control"/>
+        </div>
+        <div class="col-sm-4" id="bots">
+            <label class="control-label" for="currency">Count bots:</label>
+            <input class="form-control" id="currency" type="number" title="currency" value="0" min="0" max="5" style="width: 100%;" />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit" style="margin: auto" id="sendData">Start game</button>
+    
+    <script src="~/Scripts/game/game.js"></script>
+</div>
