@@ -8,6 +8,8 @@ namespace ViewModel.Round
 {
     class CardModelView
     {
+        public int Id { get; set; }
+
         public string Amount { get; set; }
 
         public string Suit { get; set; }

@@ -44,8 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Round\CardModelView.cs" />
+    <Compile Include="Round\InnerRoundViewModel.cs" />
     <Compile Include="Round\PlayerCardModelView.cs" />
+    <Compile Include="Round\RoundModelView.cs" />
+    <Compile Include="Round\UserCardsModelView.cs" />
     <Compile Include="Round\UserViewModel.cs" />
+    <Compile Include="Round\WinnerModelView.cs" />
     <Compile Include="StartGame\InnerGameModel.cs" />
     <Compile Include="UserServiceModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

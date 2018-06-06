@@ -18,7 +18,7 @@ $('#currency').change(function () {
         var labelForInput = document.createElement('label');
         labelForInput.innerText = "Name of bot #" + (i + 1);
         labelForInput.setAttribute('for', 'botName' + i);
-        labelForInput.classList.add('nameBots')
+        labelForInput.classList.add('nameBots');
         labelForInput.classList.add('label-control');
         document.getElementById('bots').appendChild(labelForInput);
         var inputBotName = document.createElement('input');
@@ -42,7 +42,7 @@ function getBotNames () {
     var index = 0;
     $("[id ^= 'botName']").each(function(index) {
         names[index] = $(this).val();
-        index++
+        index++;
     });
     return names;
 }
@@ -57,7 +57,7 @@ $('#sendData').click(function () {
     };
     model.NameOfBots = getBotNames();
     $.ajax({
-        url: 'http://localhost:50220/api/Game/Create',
+        url: 'http://localhost:50220/api/CreateGame/Create',
         type: "POST",
         data: JSON.stringify(model),
         contentType: "application/json"

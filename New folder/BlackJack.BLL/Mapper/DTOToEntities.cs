@@ -24,17 +24,19 @@ namespace BlackJack.BLL.Mapper
             User user = new User()
             {
                 Name = userDto.Name,
-                TypeId = userDto.TypeId
+                TypeId = userDto.TypeId,
+                GameId = userDto.GameId
             };
             return user;
-        }
+            }
 
         public User GetPlayer(UserDTO userDto)
         {
             User user = new User()
             {
                 Name = userDto.Name,
-                TypeId = userDto.TypeId
+                TypeId = userDto.TypeId,
+                GameId = userDto.GameId
             };
             return user;
         }
@@ -44,7 +46,8 @@ namespace BlackJack.BLL.Mapper
             User user = new User()
             {
                 Name = userDto.Name,
-                TypeId = userDto.TypeId
+                TypeId = userDto.TypeId,
+                GameId = userDto.GameId
             };
             return user;
         }

@@ -10,7 +10,8 @@ namespace BlackJackDAL.Repositories
 {
     public class TypeRepository:DpGenericRepository<Type>
     {
-        public TypeRepository(string connectionString) : base(connectionString)
+        private static string _tableName = "Types";
+        public TypeRepository(string connectionString) : base(connectionString, _tableName)
         {
         }
     }

@@ -9,15 +9,13 @@ namespace BlackJackDAL.Interfaces
     {
         IEnumerable<TEntity> GetAll();
         Task<IEnumerable<TEntity>> GetAllAsync();
-        TEntity Get(Func<TEntity, bool> item);
-        Task<TEntity> GetAsync(Func<TEntity, bool> item);
+        TEntity Get(int id);
+        Task<TEntity> GetAsync(int id);
         void Create(TEntity item);
         Task CreateAsync(TEntity item);
         void Remove(TEntity item);
         Task RemoveAsync(TEntity item);
         void Update(TEntity item);
         Task UpdateAsync(TEntity item);
-        IEnumerable<TEntity> GetSomeEntities(Func<TEntity, bool> predicat);
-        Task<IEnumerable<TEntity>> GetSomeEntitiesAsync(Func<TEntity, bool> predicat);
     }
 }

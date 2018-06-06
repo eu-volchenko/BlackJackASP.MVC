@@ -9,8 +9,18 @@ using ViewModel.StartGame;
 
 namespace BlackJack.BLL.Interfaces
 {
-    interface IRoundService
+    public interface IRoundService
     {
-        InnerGameModel GetGameModel(int id);
+        Task<InnerGameModel> GetGameInfo(int id);
+
+        Task<UserCardsModelView> GetCardsForStartGame(int gameId, string userName, int idRound);
+
+        Task<RoundModelView> CreateRound(int gameId);
+
+        Task<UserViewModel> GetUser(int idGame, string userName);
+
+        Task<int> GetCard(UserViewModel userModelView, int roundId);
+
+        Task<WinnerModelView> LearnTheWinner(InnerRoundViewModel model);
     }
 }

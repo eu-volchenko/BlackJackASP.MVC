@@ -1,3 +1,5 @@
+using Dapper.Contrib.Extensions;
+
 namespace BlackJackDAL.Entities
 {
     using System;
@@ -6,22 +8,31 @@ namespace BlackJackDAL.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Game
+    public partial class Game:BaseEntity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Game()
         {
-            //GameRounds = new HashSet<GameRound>();
-            //Histories = new HashSet<History>();
+            Rounds = new HashSet<Round>();
+            Histories = new HashSet<History>();
+            Users = new HashSet<User>();
         }
-        
-        public int Id { get; set; }
 
         public int NumberOfPlayers { get; set; }
 
-        //public virtual ICollection<GameRound> GameRounds { get; set; }
-        //public virtual IEnumerable<GameRound> GameRounds { get; set; }
+        [Computed]
+        public virtual BaseEntity BaseEntity { get; set; }
 
-        //public virtual IEnumerable<History> Histories { get; set; }
-        //public virtual ICollection<History> Histories { get; set; }
+        [Computed]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Round> Rounds { get; set; }
+
+        [Computed]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<History> Histories { get; set; }
+
+        [Computed]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

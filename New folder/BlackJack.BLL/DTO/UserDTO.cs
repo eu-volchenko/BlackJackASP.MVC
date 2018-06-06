@@ -14,5 +14,6 @@ namespace BlackJack.BLL.DTO
 
         public int TypeId { get; set; }
 
+        public int GameId { get; set; }
     }
 }

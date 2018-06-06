@@ -52,6 +52,9 @@
     <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc5.4.0.0\lib\net451\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.WebApi2.4.0.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -156,6 +159,7 @@
   <ItemGroup>
     <Compile Include="api\GameApiController.cs" />
     <Compile Include="api\HomeApiController.cs" />
+    <Compile Include="api\CreateGameController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -173,46 +177,60 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\game.css" />
-    <Content Include="Content\Images\10_of_clubs.png" />
-    <Content Include="Content\Images\10_of_diamonds.png" />
-    <Content Include="Content\Images\10_of_hearts.png" />
-    <Content Include="Content\Images\10_of_spades.png" />
-    <Content Include="Content\Images\2_of_clubs.png" />
-    <Content Include="Content\Images\2_of_diamonds.png" />
-    <Content Include="Content\Images\2_of_hearts.png" />
-    <Content Include="Content\Images\2_of_spades.png" />
-    <Content Include="Content\Images\3_of_clubs.png" />
-    <Content Include="Content\Images\3_of_diamonds.png" />
-    <Content Include="Content\Images\3_of_hearts.png" />
-    <Content Include="Content\Images\3_of_spades.png" />
-    <Content Include="Content\Images\4_of_clubs.png" />
-    <Content Include="Content\Images\4_of_diamonds.png" />
-    <Content Include="Content\Images\6_of_clubs.png" />
-    <Content Include="Content\Images\6_of_diamonds.png" />
-    <Content Include="Content\Images\6_of_hearts.png" />
-    <Content Include="Content\Images\6_of_spades.png" />
-    <Content Include="Content\Images\7_of_clubs.png" />
-    <Content Include="Content\Images\7_of_diamonds.png" />
-    <Content Include="Content\Images\7_of_hearts.png" />
-    <Content Include="Content\Images\7_of_spades.png" />
-    <Content Include="Content\Images\834.png" />
-    <Content Include="Content\Images\8_of_clubs.png" />
-    <Content Include="Content\Images\8_of_diamonds.png" />
-    <Content Include="Content\Images\ace_of_clubs.png" />
-    <Content Include="Content\Images\ace_of_diamonds.png" />
-    <Content Include="Content\Images\ace_of_hearts.png" />
-    <Content Include="Content\Images\ace_of_spades.png" />
-    <Content Include="Content\Images\back%402x.png" />
     <Content Include="Content\Images\back.png" />
     <Content Include="Content\Images\blackjack-table.svg" />
-    <Content Include="Content\Images\king_of_diamonds.png" />
-    <Content Include="Content\Images\king_of_hearts.png" />
-    <Content Include="Content\Images\king_of_spades.png" />
-    <Content Include="Content\Images\queen_of_clubs.png" />
-    <Content Include="Content\Images\queen_of_diamonds.png" />
-    <Content Include="Content\Images\queen_of_hearts.png" />
-    <Content Include="Content\Images\queen_of_spades.png" />
-    <Content Include="Content\Images\red_joker.png" />
+    <Content Include="Content\Images\44.png" />
+    <Content Include="Content\Images\37.png" />
+    <Content Include="Content\Images\38.png" />
+    <Content Include="Content\Images\39.png" />
+    <Content Include="Content\Images\40.png" />
+    <Content Include="Content\Images\41.png" />
+    <Content Include="Content\Images\52.png" />
+    <Content Include="Content\Images\42.png" />
+    <Content Include="Content\Images\43.png" />
+    <Content Include="Content\Images\48.png" />
+    <Content Include="Content\Images\45.png" />
+    <Content Include="Content\Images\47.png" />
+    <Content Include="Content\Images\46.png" />
+    <Content Include="Content\Images\20.png" />
+    <Content Include="Content\Images\13.png" />
+    <Content Include="Content\Images\14.png" />
+    <Content Include="Content\Images\15.png" />
+    <Content Include="Content\Images\16.png" />
+    <Content Include="Content\Images\17.png" />
+    <Content Include="Content\Images\50.png" />
+    <Content Include="Content\Images\18.png" />
+    <Content Include="Content\Images\19.png" />
+    <Content Include="Content\Images\24.png" />
+    <Content Include="Content\Images\21.png" />
+    <Content Include="Content\Images\23.png" />
+    <Content Include="Content\Images\22.png" />
+    <Content Include="Content\Images\8.png" />
+    <Content Include="Content\Images\1.png" />
+    <Content Include="Content\Images\2.png" />
+    <Content Include="Content\Images\3.png" />
+    <Content Include="Content\Images\4.png" />
+    <Content Include="Content\Images\5.png" />
+    <Content Include="Content\Images\49.png" />
+    <Content Include="Content\Images\6.png" />
+    <Content Include="Content\Images\7.png" />
+    <Content Include="Content\Images\12.png" />
+    <Content Include="Content\Images\9.png" />
+    <Content Include="Content\Images\11.png" />
+    <Content Include="Content\Images\10.png" />
+    <Content Include="Content\Images\32.png" />
+    <Content Include="Content\Images\25.png" />
+    <Content Include="Content\Images\26.png" />
+    <Content Include="Content\Images\27.png" />
+    <Content Include="Content\Images\28.png" />
+    <Content Include="Content\Images\29.png" />
+    <Content Include="Content\Images\51.png" />
+    <Content Include="Content\Images\30.png" />
+    <Content Include="Content\Images\31.png" />
+    <Content Include="Content\Images\36.png" />
+    <Content Include="Content\Images\33.png" />
+    <Content Include="Content\Images\35.png" />
+    <Content Include="Content\Images\34.png" />
     <Content Include="Content\kendo\Black\editor.png" />
     <Content Include="Content\kendo\Black\imagebrowser.png" />
     <Content Include="Content\kendo\Black\indeterminate.gif" />

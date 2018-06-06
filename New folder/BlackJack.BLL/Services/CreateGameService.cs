@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using BlackJack.BLL.DTO;
@@ -26,60 +27,59 @@ namespace BlackJack.BLL.Services
             _userRepository = new UserRepository(_connectionString);
         }
 
-
-        public async Task AddBots(InnerGameModel gameData)
+        public async Task AddBots(InnerGameModel gameData, int id)
         {
             var DtoToEntities = new DTOToEntities();
-            for (int i = 0; i < gameData.NameOfBots.Length; i++)
+            for (int i = 0; i < gameData.NameOfBots.Count; i++)
             {
                 UserDTO bot = new UserDTO()
                 {
-                    TypeId = 2
+                    TypeId = 2,
+                    GameId = id
                 };
                 var modelViewToDto = new ModelViewToDTO();
                 bot = modelViewToDto.GetBotDto(gameData.NameOfBots[i], bot);
                 var botEntity = DtoToEntities.GetBot(bot);
-                await _userRepository.CreateAsync(botEntity);
+                var task = _userRepository.CreateAsync(botEntity);
+                await task;
             }
         }
 
-        public async Task AddPlayer(InnerGameModel gameData)
+        public async Task AddPlayer(InnerGameModel gameData, int id)
         {
             var dtoToEntities = new DTOToEntities();
             var modelViewToDto = new ModelViewToDTO();
-            var playerDto = new UserDTO();
+            var playerDto = new UserDTO()
+            {
+                GameId = id
+            };
             modelViewToDto.GetPlayerDto(gameData, playerDto);
-            await _userRepository.CreateAsync(dtoToEntities.GetPlayer(playerDto));
+             await _userRepository.CreateAsync(dtoToEntities.GetPlayer(playerDto));
 
 
         }
 
         public int AddGame(InnerGameModel gamedata)
         {
-            try
-            {
-                var gameDto = new GameDTO();
-                var modelViewToDto = new ModelViewToDTO();
-                var dtoToEntities = new DTOToEntities();
-                modelViewToDto.GetGameDto(gamedata, gameDto);
-                int id  = _gameRepository.CreateAndKnowId(dtoToEntities.GetGame(gameDto));
-                return id;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
 
-
-        }
-
-        public async Task AddDealer(InnerGameModel gameData)
-        {
-            var dealerDto = new UserDTO();
+            var gameDto = new GameDTO();
             var modelViewToDto = new ModelViewToDTO();
             var dtoToEntities = new DTOToEntities();
-            dealerDto=modelViewToDto.GetDealerDto(gameData, dealerDto);
+            modelViewToDto.GetGameDto(gamedata, gameDto);
+            var game = dtoToEntities.GetGame(gameDto);
+            int id = _gameRepository.CreateAndKnowId(game);
+            return id;
+        }
+
+        public async Task AddDealer(InnerGameModel gameData, int id)
+        {
+            var dealerDto = new UserDTO()
+            {
+                GameId = id
+            };
+            var modelViewToDto = new ModelViewToDTO();
+            var dtoToEntities = new DTOToEntities();
+            dealerDto = modelViewToDto.GetDealerDto(gameData, dealerDto);
             await _userRepository.CreateAsync(dtoToEntities.GetDealer(dealerDto));
         }
     }

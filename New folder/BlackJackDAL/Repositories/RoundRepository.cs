@@ -10,7 +10,8 @@ namespace BlackJackDAL.Repositories
 {
     public class RoundRepository:DpGenericRepository<Round>
     {
-        public RoundRepository(string connectionString) : base(connectionString)
+        private readonly static string _tableName = "Rounds";
+        public RoundRepository(string connectionString) : base(connectionString, _tableName)
         {
         }
     }

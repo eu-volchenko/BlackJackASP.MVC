@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.BLL.Mapper
 {
-    public static class DTOToModelView
+    public class DTOToModelView
     {
     }
 }

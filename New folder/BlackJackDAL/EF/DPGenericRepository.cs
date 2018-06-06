@@ -9,16 +9,20 @@ using BlackJackDAL.Entities;
 using BlackJackDAL.Interfaces;
 using Dapper;
 using Dapper.Contrib.Extensions;
+using NLog;
 
 
 namespace BlackJackDAL.EF
 {
     public class DpGenericRepository<TEntity> : IDpGenericRepository<TEntity> where TEntity : class
     {
-        private readonly IDbConnection _connection;
-        public DpGenericRepository(string connectionString)
+        private  IDbConnection _connection;
+        private readonly string _connectionString;
+        private readonly string _tableName;
+        public DpGenericRepository(string connectionString, string tableName)
         {
-            _connection = new SqlConnection(connectionString);
+            _tableName = tableName;
+            _connectionString = connectionString;
         }
 
         public void Dispose()
@@ -29,9 +33,11 @@ namespace BlackJackDAL.EF
         public IEnumerable<TEntity> GetAll()
         {
             IEnumerable<TEntity> listOfAll;
-            using (_connection)
+            using (_connection = new SqlConnection(_connectionString))
             {
+                _connection.Open();
                 listOfAll = _connection.GetAll<TEntity>();
+                _connection.Close();
             }
 
             return listOfAll;
@@ -40,31 +46,37 @@ namespace BlackJackDAL.EF
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             IEnumerable<TEntity> listOfAll;
-            using (_connection)
+            using (_connection = new SqlConnection(_connectionString))
             {
+                _connection.Open();
                 listOfAll = await _connection.GetAllAsync<TEntity>();
+                _connection.Close();
             }
 
             return listOfAll;
         }
 
-        public TEntity Get(Func<TEntity, bool> item)
+        public TEntity Get(int id)
         {
             TEntity entity;
-            using (_connection)
+            using (_connection = new SqlConnection(_connectionString))
             {
-                entity = _connection.Get<TEntity>(item);
+                _connection.Open();
+                entity = _connection.Get<TEntity>(id);
+                _connection.Close();
             }
 
             return entity;
         }
 
-        public async Task<TEntity> GetAsync(Func<TEntity,bool> item)
+        public async Task<TEntity> GetAsync(int id)
         {
             TEntity entity;
-            using (_connection)
+            using (_connection = new SqlConnection(_connectionString))
             {
-                entity = await _connection.GetAsync<TEntity>(item);
+                _connection.Open();
+                entity = await _connection.GetAsync<TEntity>(id);
+                _connection.Close();
             }
 
             return entity;
@@ -72,61 +84,99 @@ namespace BlackJackDAL.EF
 
         public void Create(TEntity item)
         {
-            using (_connection)
+            try
             {
-                _connection.Insert(item);
+                using (_connection = new SqlConnection(_connectionString))
+                {
+                    _connection.Open();
+                    _connection.Insert(item);
+                    _connection.Close();
+                }
+            }
+            catch (Exception exception)
+            {
+                
             }
         }
 
         public async Task CreateAsync(TEntity item)
         {
-            using (_connection)
+            try
             {
-                await _connection.InsertAsync(item);
+                using (_connection = new SqlConnection(_connectionString))
+                {
+                    _connection.Open();
+                    await _connection.InsertAsync(item);
+                    _connection.Close();
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine();
+                throw;
             }
         }
 
         public void Remove(TEntity item)
-        {
-            using (_connection)
             {
-                _connection.Delete(item);
+                using (_connection = new SqlConnection(_connectionString))
+                {
+                    _connection.Open();
+                    _connection.Delete(item);
+                    _connection.Open();
+                }
             }
-        }
 
-        public async Task RemoveAsync(TEntity item)
-        {
-            using (_connection)
+            public async Task RemoveAsync(TEntity item)
             {
-                await _connection.DeleteAsync(item);
+                using (_connection = new SqlConnection(_connectionString))
+                {
+                    _connection.Open();
+                    await _connection.DeleteAsync(item);
+                    _connection.Close();
+                }
             }
-        }
 
-        public void Update(TEntity item)
-        {
-            using (_connection)
+            public void Update(TEntity item)
             {
-                _connection.Update(item);
+                using (_connection = new SqlConnection(_connectionString))
+                {
+                    _connection.Open();
+                    _connection.Update(item);
+                    _connection.Close();
+                }
             }
-        }
 
-        public async Task UpdateAsync(TEntity item)
-        {
-            using (_connection)
+            public async Task UpdateAsync(TEntity item)
             {
-                await _connection.UpdateAsync(item);
+                using (_connection = new SqlConnection(_connectionString))
+                {
+                    _connection.Open();
+                    await _connection.UpdateAsync(item);
+                _connection.Close();
+                }
             }
+
+            public IEnumerable<TEntity> GetSomeEntities(Func<TEntity, bool> predicat)
+            {
+                //using (_connection)
+                //{
+                //    Task<IEnumerable<TEntity>> listOfAll = _connection.GetAllAsync<TEntity>();
+                //    Task<IEnumerable<TEntity>> listEntities = SortAllEntities(predicat, listOfAll);
+                //    return listEntities.Result;
+                //}
+                throw new NotImplementedException();
+            }
+
+            
+
+            //private async Task<IEnumerable<TEntity>> SortAllEntities(Func<TEntity, bool> predicat,
+            //    Task<IEnumerable<TEntity>> allEntities)
+            //{
+            //    IEnumerable<TEntity> listOfAll = allEntities.Result;
+            //    IEnumerable<TEntity> needEntities = listOfAll.Where(predicat).ToList();
+            //    return needEntities;
+            //}
         }
 
-        public IEnumerable<TEntity> GetSomeEntities(Func<TEntity, bool> predicat)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<TEntity>> GetSomeEntitiesAsync(Func<TEntity, bool> predicat)
-        {
-            throw new NotImplementedException();
-        }
     }
-    
-}

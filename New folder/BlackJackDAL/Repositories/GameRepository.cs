@@ -14,20 +14,30 @@ namespace BlackJackDAL.Repositories
     public class GameRepository : DpGenericRepository<Game>
     {
         private readonly IDbConnection _connection;
-        public GameRepository(string connectionString) : base(connectionString)
+        private static string _tableName = "Games";
+        public GameRepository(string connectionString) : base(connectionString, _tableName)
         {
             _connection = new SqlConnection(connectionString);
         }
 
         public int CreateAndKnowId(Game itemGame)
         {
-            using (_connection)
+            try
             {
-                 _connection.Insert(itemGame);
-            }
+                using (_connection)
+                {
+                    _connection.Insert(itemGame);
+                }
 
-            int id = itemGame.Id;
-            return id;
+                int id = itemGame.Id;
+                return id;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+           
         }
     }
 }

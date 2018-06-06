@@ -1,4 +1,6 @@
-﻿namespace ViewModel.StartGame
+﻿using System.Collections.Generic;
+
+namespace ViewModel.StartGame
 {
     public class InnerGameModel
     {
@@ -6,6 +8,6 @@
         public string PlayerName { get; set; }
         public int NumberOfBots { get; set; }
         public string DealerName { get; set; }
-        public string [] NameOfBots { get; set; }
+        public List<string>NameOfBots { get; set; } = new List<string>();
     }
 }

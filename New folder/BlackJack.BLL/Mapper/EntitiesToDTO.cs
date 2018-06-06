@@ -19,5 +19,17 @@ namespace BlackJack.BLL.Mapper
             };
             return gameDto;
         }
+
+        public UserDTO UserToUserDto(User user)
+        {
+            UserDTO userDto = new UserDTO()
+            {
+                GameId = user.GameId,
+                Id = user.Id,
+                TypeId = user.TypeId,
+                Name = user.Name
+            };
+            return userDto;
+        }
     }
 }

@@ -1,3 +1,5 @@
+using Dapper.Contrib.Extensions;
+
 namespace BlackJackDAL.Entities
 {
     using System;
@@ -6,14 +8,16 @@ namespace BlackJackDAL.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class History
+    public partial class History:BaseEntity
     {
-        public int Id { get; set; }
-
         public DateTime LogDateTime { get; set; }
 
         public int GameId { get; set; }
 
+        [Computed]
         public virtual Game Game { get; set; }
+
+        [Computed]
+        public virtual BaseEntity BaseEntity { get; set; }
     }
 }
