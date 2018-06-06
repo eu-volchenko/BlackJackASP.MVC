@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -132,7 +133,7 @@ namespace BlackJack.BLL.Services
             {
                 Id = user.Id,
                 Name = user.Name,
-                type = user.TypeId
+                Type = user.TypeId
             };
             return userModelView;
         }
@@ -216,6 +217,25 @@ namespace BlackJack.BLL.Services
             {
                 Console.WriteLine(ex);
                 throw;
+            }
+        }
+
+        public async Task GetCardsForBots(UserViewModel userViewModel, int roundId)
+        {
+            var userCards = _userCardRepository.GetAll()
+                .Where(x => x.RoundId == roundId && x.UserId == userViewModel.Id);
+            var userPoints = PointCount(userCards);
+            while (userPoints < 17)
+            {
+                var randomCard = Randomizer.RandomId();
+                var userCard = new UserCard()
+                {
+                    CardId = randomCard,
+                    UserId = userViewModel.Id,
+                    RoundId = roundId
+                };
+                await _userCardRepository.CreateAsync(userCard);
+                userPoints +=  _cardRepository.Get(randomCard).Cost;
             }
         }
 

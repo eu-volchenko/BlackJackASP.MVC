@@ -94,6 +94,22 @@ $('#one-more').click(function () {
 $('#finish-round').click(function () {
     gameModel.RoundId = idRound;
     gameModel.Id = gameId;
+    $.ajax({
+        dataType: "json",
+        url: 'http://localhost:50220/api/Game/OneMoreBots',
+        data: "gameId=" + gameId + "&userName=" + gameModel.DealerName + "&roundId=" + idRound,
+        type: "GET",
+        contentType: 'application/json; charset=utf-8'
+    });
+    for (var j = 0; j < gameModel.NumberOfBots; j++) {
+        $.ajax({
+            dataType: "json",
+            url: 'http://localhost:50220/api/Game/OneMoreBots',
+            data: "gameId=" + gameId + "&userName=" + gameModel.NameOfBots[j] + "&roundId=" + idRound,
+            contentType: 'application/json; charset=utf-8'
+        });
+    }
+   
     $('#menu').fadeIn('fast');
     $.ajax({
         dataType: "json",

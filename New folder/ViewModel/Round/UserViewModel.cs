@@ -9,7 +9,7 @@ namespace ViewModel.Round
     public class UserViewModel
     {
         public int Id { get; set; }
-        public int type { get; set; }
+        public int Type { get; set; }
         public string Name { get; set; }
     }
 }

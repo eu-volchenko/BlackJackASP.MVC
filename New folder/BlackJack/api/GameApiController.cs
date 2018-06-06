@@ -65,5 +65,14 @@ namespace BlackJack.api
             WinnerModelView winner = await _roundService.LearnTheWinner(model);
             return JsonConvert.SerializeObject(winner);
         }
+
+        [HttpGet]
+        [Route("OneMoreBots")]
+        public async Task<HttpResponseMessage> OneMoreCardBots(int gameId, string userName, int roundId)
+        {
+            UserViewModel user = await _roundService.GetUser(gameId, userName);
+            await _roundService.GetCardsForBots(user, roundId);
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
     }
 }

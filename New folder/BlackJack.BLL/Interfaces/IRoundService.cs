@@ -22,5 +22,7 @@ namespace BlackJack.BLL.Interfaces
         Task<int> GetCard(UserViewModel userModelView, int roundId);
 
         Task<WinnerModelView> LearnTheWinner(InnerRoundViewModel model);
+
+        Task GetCardsForBots(UserViewModel userViewModel, int roundId);
     }
 }
