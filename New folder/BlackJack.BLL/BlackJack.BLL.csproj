@@ -78,6 +78,7 @@
     <Compile Include="DTO\RoundDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Interfaces\ICreateGameService.cs" />
+    <Compile Include="Interfaces\IHistoryService.cs" />
     <Compile Include="Interfaces\IRoundService.cs" />
     <Compile Include="Mapper\DTOToEntities.cs" />
     <Compile Include="Mapper\DTOToModelView.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Mapper\ModelViewToDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CreateGameService.cs" />
+    <Compile Include="Services\HistoryService.cs" />
     <Compile Include="Services\RoundService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ using BlackJackDAL.Entities;
 
 namespace BlackJackDAL.Repositories
 {
-    class UserCardRepository:DpGenericRepository<UserCard>
+    public class UserCardRepository:DpGenericRepository<UserCard>
     {
         private static string _tableName = "UserCards";
         public UserCardRepository(string connectionString) : base(connectionString, _tableName)

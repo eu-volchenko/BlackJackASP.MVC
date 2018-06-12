@@ -20,16 +20,18 @@ namespace BlackJack.BLL.Services
         private readonly string _connectionString = System.Configuration.ConfigurationManager.
         ConnectionStrings["ContextDB"].ConnectionString;
         private readonly GameRepository _gameRepository;
+        private readonly IGenericRepository<History> _historyRepository;
         private readonly IGenericRepository<User> _userRepository;
         public CreateGameService()
         {
             _gameRepository = new GameRepository(_connectionString);
+            _historyRepository = new HistoryRepository(_connectionString);
             _userRepository = new UserRepository(_connectionString);
         }
 
         public async Task AddBots(InnerGameModel gameData, int id)
         {
-            var DtoToEntities = new DTOToEntities();
+            var dtoToEntities = new DTOToEntities();
             for (int i = 0; i < gameData.NameOfBots.Count; i++)
             {
                 UserDTO bot = new UserDTO()
@@ -39,7 +41,7 @@ namespace BlackJack.BLL.Services
                 };
                 var modelViewToDto = new ModelViewToDTO();
                 bot = modelViewToDto.GetBotDto(gameData.NameOfBots[i], bot);
-                var botEntity = DtoToEntities.GetBot(bot);
+                var botEntity = dtoToEntities.GetBot(bot);
                 var task = _userRepository.CreateAsync(botEntity);
                 await task;
             }
@@ -68,6 +70,12 @@ namespace BlackJack.BLL.Services
             modelViewToDto.GetGameDto(gamedata, gameDto);
             var game = dtoToEntities.GetGame(gameDto);
             int id = _gameRepository.CreateAndKnowId(game);
+            var historyGame = new History()
+            {
+                LogDateTime = DateTime.Now,
+                GameId = id
+            };
+            _historyRepository.Create(historyGame);
             return id;
         }
 

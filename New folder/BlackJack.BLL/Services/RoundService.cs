@@ -72,7 +72,7 @@ namespace BlackJack.BLL.Services
         public async Task<UserCardsModelView> GetCardsForStartGame(int gameId, string userName, int idRound)
         {
             
-            var user = await _userRepository.GetUserByNameAndGame(gameId, userName);
+            var user = _userRepository.GetUserByNameAndGame(gameId, userName);
             UserCardsModelView userCards = new UserCardsModelView { UserId = user.Id };
             for (int i = 0; i < 2; i++)
             {
@@ -126,9 +126,9 @@ namespace BlackJack.BLL.Services
             return names;
         }
 
-        public async Task<UserViewModel> GetUser(int idGame, string userName)
+        public UserViewModel GetUser(int idGame, string userName)
         {
-            User user = await _userRepository.GetUserByNameAndGame(idGame, userName);
+            User user = _userRepository.GetUserByNameAndGame(idGame, userName);
             UserViewModel userModelView = new UserViewModel()
             {
                 Id = user.Id,
@@ -157,15 +157,15 @@ namespace BlackJack.BLL.Services
             {
                 var botsScore = new List<int>();
                 var botsCards = new List<IEnumerable<UserCard>>();
-                var player = await _userRepository.GetUserByNameAndGame(model.Id, model.PlayerName);
+                var player = _userRepository.GetUserByNameAndGame(model.Id, model.PlayerName);
                 var playerCards = _userCardRepository.GetAll()
                     .Where(x => x.RoundId == model.RoundId && x.UserId == player.Id);
-                var dealer = await _userRepository.GetUserByNameAndGame(model.Id, model.DealerName);
+                var dealer =  _userRepository.GetUserByNameAndGame(model.Id, model.DealerName);
                 var dealerCards = _userCardRepository.GetAll()
                     .Where(x => x.RoundId == model.RoundId && x.UserId == dealer.Id);
                 for (int i = 0; i < model.NumberOfBots; i++)
                 {
-                    var bot = await _userRepository.GetUserByNameAndGame(model.Id, model.NameOfBots[i]);
+                    var bot =_userRepository.GetUserByNameAndGame(model.Id, model.NameOfBots[i]);
                     var botCards = _userCardRepository.GetAll()
                         .Where(x => x.RoundId == model.RoundId && x.UserId == bot.Id);
                     botsCards.Add(botCards);
@@ -211,6 +211,9 @@ namespace BlackJack.BLL.Services
                     UserId = _userRepository.GetUserByNameAndGame(model.Id, winnerName).Id,
                 };
                 winner.Cards = getWinnerCards(winnerCards);
+                var round = await  _roundRepository.GetAsync(model.RoundId);
+                round.UserId = winner.UserId;
+                await _roundRepository.UpdateAsync(round);
                 return winner;
             }
             catch (Exception ex)

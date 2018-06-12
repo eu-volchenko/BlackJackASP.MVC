@@ -45,15 +45,24 @@ namespace BlackJackDAL.EF
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            IEnumerable<TEntity> listOfAll;
-            using (_connection = new SqlConnection(_connectionString))
+            try
             {
-                _connection.Open();
-                listOfAll = await _connection.GetAllAsync<TEntity>();
-                _connection.Close();
-            }
+                IEnumerable<TEntity> listOfAll;
+                using (_connection = new SqlConnection(_connectionString))
+                {
+                    _connection.Open();
+                    listOfAll = await _connection.QueryAsync<TEntity>("SELECT * FROM " + _tableName);
+                    _connection.Close();
+                }
 
-            return listOfAll;
+                return listOfAll;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
         }
 
         public TEntity Get(int id)
@@ -71,50 +80,44 @@ namespace BlackJackDAL.EF
 
         public async Task<TEntity> GetAsync(int id)
         {
-            TEntity entity;
-            using (_connection = new SqlConnection(_connectionString))
+            try
             {
-                _connection.Open();
-                entity = await _connection.GetAsync<TEntity>(id);
-                _connection.Close();
-            }
+                TEntity entity;
+                using (_connection = new SqlConnection(_connectionString))
+                {
+                    _connection.Open();
+                    entity = await _connection.GetAsync<TEntity>(id);
+                    _connection.Close();
+                }
 
-            return entity;
+                return entity;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
         }
 
         public void Create(TEntity item)
         {
-            try
-            {
                 using (_connection = new SqlConnection(_connectionString))
                 {
                     _connection.Open();
                     _connection.Insert(item);
                     _connection.Close();
                 }
-            }
-            catch (Exception exception)
-            {
-                
-            }
         }
 
         public async Task CreateAsync(TEntity item)
         {
-            try
-            {
                 using (_connection = new SqlConnection(_connectionString))
                 {
                     _connection.Open();
                     await _connection.InsertAsync(item);
                     _connection.Close();
                 }
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine();
-                throw;
-            }
         }
 
         public void Remove(TEntity item)

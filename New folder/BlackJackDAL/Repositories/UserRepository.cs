@@ -44,7 +44,7 @@ namespace BlackJackDAL.Repositories
             
         }
 
-        public async Task<User> GetUserByNameAndGame(int gameId, string userName)
+        public User GetUserByNameAndGame(int gameId, string userName)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace BlackJackDAL.Repositories
                 using (_connection = new SqlConnection(_connectionString))
                 {
                     _connection.Open();
-                    user = await _connection.QuerySingleAsync<User>(
+                    user =  _connection.QuerySingle<User>(
                         "SELECT * FROM " + _tableName + " WHERE GameId=@game AND Name=@Name",
                         new {game = gameId, Name = userName});
                     _connection.Close();

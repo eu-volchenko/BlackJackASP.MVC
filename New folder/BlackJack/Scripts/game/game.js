@@ -47,22 +47,24 @@ function getBotNames () {
     return names;
 }
 
+$(window).ready(function() {
+    $('#sendData').click(function() {
+        "use strict";
+        var model = {
+            PlayerName: $('#playerName').val(),
+            NumberOfBots: $('#currency').val(),
+            DealerName: $('#dealerName').val()
+        };
+        model.NameOfBots = getBotNames();
+        $.ajax({
+            url: 'http://localhost:50220/api/CreateGame/Create',
+            type: "POST",
+            data: JSON.stringify(model),
+            contentType: "application/json"
+        }).done(function(id) {
+            window.location.replace("http://localhost:50220//Game/Game?id=" + id);
+        });
 
-$('#sendData').click(function () {
-    "use strict";
-    var model = {
-        PlayerName: $('#playerName').val(),
-        NumberOfBots: $('#currency').val(),
-        DealerName: $('#dealerName').val()
-    };
-    model.NameOfBots = getBotNames();
-    $.ajax({
-        url: 'http://localhost:50220/api/CreateGame/Create',
-        type: "POST",
-        data: JSON.stringify(model),
-        contentType: "application/json"
-    }).done(function(id) {
-        window.location.replace("http://localhost:50220//Game/Game?id=" + id);
     });
-    
 });
+

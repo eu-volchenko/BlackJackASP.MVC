@@ -11,5 +11,6 @@ namespace ViewModel.Round
         public int Id { get; set; }
         public int RoundInGame { get; set; }
         public int GameId { get; set; }
+        public string WinnerName { get; set; }
     }
 }

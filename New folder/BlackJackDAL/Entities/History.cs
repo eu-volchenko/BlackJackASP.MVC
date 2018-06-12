@@ -8,6 +8,7 @@ namespace BlackJackDAL.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    [Table("Histories")]
     public partial class History:BaseEntity
     {
         public DateTime LogDateTime { get; set; }

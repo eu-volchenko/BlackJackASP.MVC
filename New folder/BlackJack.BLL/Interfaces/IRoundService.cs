@@ -17,7 +17,7 @@ namespace BlackJack.BLL.Interfaces
 
         Task<RoundModelView> CreateRound(int gameId);
 
-        Task<UserViewModel> GetUser(int idGame, string userName);
+        UserViewModel GetUser(int idGame, string userName);
 
         Task<int> GetCard(UserViewModel userModelView, int roundId);
 

@@ -26,8 +26,8 @@ namespace BlackJack
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
-            bundles.Add(new ScriptBundle("~/bundles/Script").Include(
-                "~/Scripts/game/playing-game.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/Script").Include(
+            //    "~/Scripts/game/playing-game.js"));
 
         }
     }

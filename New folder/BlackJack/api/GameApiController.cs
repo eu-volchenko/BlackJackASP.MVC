@@ -53,7 +53,7 @@ namespace BlackJack.api
         [Route("OneMore")]
         public async Task<string> OneMoreCard(int gameId, string userName, int roundId)
         {
-            UserViewModel player = await _roundService.GetUser(gameId, userName);
+            UserViewModel player = _roundService.GetUser(gameId, userName);
             int idCard = await _roundService.GetCard(player, roundId);
             return JsonConvert.SerializeObject(idCard);
         }
@@ -70,7 +70,7 @@ namespace BlackJack.api
         [Route("OneMoreBots")]
         public async Task<HttpResponseMessage> OneMoreCardBots(int gameId, string userName, int roundId)
         {
-            UserViewModel user = await _roundService.GetUser(gameId, userName);
+            UserViewModel user = _roundService.GetUser(gameId, userName);
             await _roundService.GetCardsForBots(user, roundId);
             return Request.CreateResponse(HttpStatusCode.OK);
         }

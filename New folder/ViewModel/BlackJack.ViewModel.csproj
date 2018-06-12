@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="History\GameHistoriesModelView.cs" />
+    <Compile Include="History\PlayerCardHistoryModelView.cs" />
+    <Compile Include="History\RoundPlayersModelView.cs" />
     <Compile Include="Round\CardModelView.cs" />
     <Compile Include="Round\InnerRoundViewModel.cs" />
     <Compile Include="Round\PlayerCardModelView.cs" />

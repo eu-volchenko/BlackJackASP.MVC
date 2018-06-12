@@ -178,6 +178,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Common\kinvey-html5-sdk.min.js" />
     <Content Include="Content\game.css" />
     <Content Include="Content\Images\back.png" />
     <Content Include="Content\Images\blackjack-table.svg" />
@@ -233,6 +234,7 @@
     <Content Include="Content\Images\33.png" />
     <Content Include="Content\Images\35.png" />
     <Content Include="Content\Images\34.png" />
+    <Content Include="Content\Images\close.png" />
     <Content Include="Content\kendo\Black\editor.png" />
     <Content Include="Content\kendo\Black\imagebrowser.png" />
     <Content Include="Content\kendo\Black\indeterminate.gif" />
@@ -571,6 +573,7 @@
     <Content Include="Content\kendo\Uniform\sprite_kpi.png" />
     <Content Include="Content\kendo\Uniform\sprite_kpi_2x.png" />
     <Content Include="Content\Styles\GameStyle.css" />
+    <Content Include="Content\Styles\history.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -684,6 +687,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\game\history.js" />
     <Content Include="Scripts\game\playing-game.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -2758,6 +2762,7 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-TW.min.js.map" />
     <Content Include="Views\Home\CreateGame.cshtml" />
     <Content Include="Views\Game\Game.cshtml" />
+    <Content Include="Views\History\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ApiControllers\" />

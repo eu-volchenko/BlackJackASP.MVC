@@ -26,6 +26,7 @@ namespace BlackJack
             builder.RegisterApiControllers(typeof(MvcApplication).Assembly);
             builder.RegisterType<CreateGameService>().As<ICreateGameService>();
             builder.RegisterType<RoundService>().As<IRoundService>();
+            builder.RegisterType<HistoryService>().As<IHistoryService>();
 
             var conteiner = builder.Build();
 

@@ -1,28 +1,30 @@
-﻿    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/Styles/GameStyle.css" rel="stylesheet" />
-<div class="container" style ="text-align: center">
+﻿
+<script src="~/Scripts/game/playing-game.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Styles/GameStyle.css" rel="stylesheet" />
+<div class="container" style="text-align: center">
     <div class="row">
-        <div class="col-md-12" id = "dealer-place"></div>
+        <div class="col-md-12" id="dealer-place"></div>
     </div>
     <div class="row">
         <div class="col-md-3" id="bot-place-0"></div>
         <div class="col-md-6">
             <img src="~/Content/Images/blackjack-table.svg" />
         </div>
-        <div class="col-md-3" id ="bot-place-1" ></div>
+        <div class="col-md-3" id="bot-place-1"></div>
     </div>
     <div class="row">
-        <div class="col-md-3"id ="bot-place-2"></div>
+        <div class="col-md-3" id="bot-place-2"></div>
         <div class="col-md-3" id="bot-place-4"></div>
         <div class="col-md-3" id="player-place"></div>
         <div class="col-md-3" id="bot-place-3"></div>
     </div>
     <div>
-        <input type="button" class="btn btn-primary" value="One More" id="one-more"/>
-        <input type="button" class="btn btn-primary" value="Finish Round" id="finish-round"/>
-        <div class="menu" id ="menu">
+        <input type="button" class="btn btn-primary" value="One More" id="one-more" />
+        <input type="button" class="btn btn-primary" value="Finish Round" id="finish-round" />
+        <div class="menu" id="menu">
             <button id="one-more-round" class=" menu-buttons btn btn-primary">One more round</button>
-            <button id ="finish-game" class=" menu-buttons btn btn-primary">Finish Game</button>
+            <button id="finish-game" class=" menu-buttons btn btn-primary">Finish Game</button>
         </div>
     </div>
 </div>
