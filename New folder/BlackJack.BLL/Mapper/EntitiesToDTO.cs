@@ -12,23 +12,19 @@ namespace BlackJack.BLL.Mapper
     {
         public GameDTO GameToGameDto(Game game)
         {
-            GameDTO gameDto = new GameDTO()
-            {
-                NumberOfPlayers = game.NumberOfPlayers,
-                Id = game.Id
-            };
+            var gameDto = new GameDTO();
+            gameDto.NumberOfPlayers = game.NumberOfPlayers;
+            gameDto.Id = game.Id;
             return gameDto;
         }
 
         public UserDTO UserToUserDto(User user)
         {
-            UserDTO userDto = new UserDTO()
-            {
-                GameId = user.GameId,
-                Id = user.Id,
-                TypeId = user.TypeId,
-                Name = user.Name
-            };
+            var userDto = new UserDTO();
+            userDto.GameId = user.GameId;
+            userDto.Id = user.Id;
+            userDto.TypeId = user.TypeId;
+            userDto.Name = user.Name;
             return userDto;
         }
     }

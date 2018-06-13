@@ -12,43 +12,36 @@ namespace BlackJack.BLL.Mapper
     {
         public Game GetGame(GameDTO gameDTO)
         {
-            Game game = new Game()
-            {
-                NumberOfPlayers = gameDTO.NumberOfPlayers
-            };
+            var game = new Game();
+            game.NumberOfPlayers = gameDTO.NumberOfPlayers;
             return game;
         }
 
         public User GetBot(UserDTO userDto)
         {
-            User user = new User()
-            {
-                Name = userDto.Name,
-                TypeId = userDto.TypeId,
-                GameId = userDto.GameId
-            };
+            var user = new User();
+            user.Name = userDto.Name;
+            user.TypeId = userDto.TypeId;
+            user.GameId = userDto.GameId;
             return user;
-            }
+        }
 
         public User GetPlayer(UserDTO userDto)
         {
-            User user = new User()
-            {
-                Name = userDto.Name,
-                TypeId = userDto.TypeId,
-                GameId = userDto.GameId
-            };
+            var user = new User();
+
+            user.Name = userDto.Name;
+            user.TypeId = userDto.TypeId;
+            user.GameId = userDto.GameId;
             return user;
         }
 
         public User GetDealer(UserDTO userDto)
         {
-            User user = new User()
-            {
-                Name = userDto.Name,
-                TypeId = userDto.TypeId,
-                GameId = userDto.GameId
-            };
+            var user = new User();
+            user.Name = userDto.Name;
+            user.TypeId = userDto.TypeId;
+            user.GameId = userDto.GameId;
             return user;
         }
     }

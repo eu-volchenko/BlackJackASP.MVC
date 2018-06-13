@@ -57,7 +57,7 @@ $(window).ready(function() {
         };
         model.NameOfBots = getBotNames();
         $.ajax({
-            url: 'http://localhost:50220/api/CreateGame/Create',
+            url: 'http://localhost:59384/api/CreateGame/Create',
             type: "POST",
             data: JSON.stringify(model),
             contentType: "application/json"

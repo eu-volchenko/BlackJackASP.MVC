@@ -17,7 +17,6 @@ C:\Users\Anuitex-84\source\repos\BlackJack\New folder\ViewModel\bin\Debug\ViewMo
 C:\Users\Anuitex-84\source\repos\BlackJack\New folder\ViewModel\bin\Debug\ViewModel.pdb
 C:\Users\Anuitex-84\source\repos\BlackJack\New folder\ViewModel\bin\Debug\Autofac.dll
 C:\Users\Anuitex-84\source\repos\BlackJack\New folder\ViewModel\bin\Debug\Autofac.xml
-C:\Users\Anuitex-84\source\repos\BlackJack\New folder\ViewModel\obj\Debug\BlackJack.ViewModel.csprojResolveAssemblyReference.cache
 C:\Users\Anuitex-84\source\repos\BlackJack\New folder\ViewModel\obj\Debug\BlackJack.ViewModel.csproj.CoreCompileInputs.cache
 C:\Users\Anuitex-84\source\repos\BlackJack\New folder\ViewModel\obj\Debug\BlackJack.ViewModel.csproj.CopyComplete
 C:\Users\Anuitex-84\source\repos\BlackJack\New folder\ViewModel\obj\Debug\ViewModel.dll

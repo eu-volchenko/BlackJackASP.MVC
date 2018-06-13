@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack", "BlackJack\BlackJack.csproj", "{1CB98CF0-51B3-4587-8ADE-C0870295176C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.UI", "BlackJack\BlackJack.UI.csproj", "{1CB98CF0-51B3-4587-8ADE-C0870295176C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.BLL", "BlackJack.BLL\BlackJack.BLL.csproj", "{D783F5A8-84FF-4BFE-A660-C45C0D2F5E1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.DAL", "BlackJackDAL\BlackJack.DAL.csproj", "{1000E69D-708A-4E29-8337-8E3BA00DEDEB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.ViewModel", "ViewModel\BlackJack.ViewModel.csproj", "{565C47D1-0FB7-457A-9CC2-C048CBB82297}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.WebApiNew", "BlackJack.WebApiNew\BlackJack.WebApiNew.csproj", "{E8F712DD-5E1C-4807-80D1-93002112D57C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{565C47D1-0FB7-457A-9CC2-C048CBB82297}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{565C47D1-0FB7-457A-9CC2-C048CBB82297}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{565C47D1-0FB7-457A-9CC2-C048CBB82297}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8F712DD-5E1C-4807-80D1-93002112D57C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8F712DD-5E1C-4807-80D1-93002112D57C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8F712DD-5E1C-4807-80D1-93002112D57C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8F712DD-5E1C-4807-80D1-93002112D57C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

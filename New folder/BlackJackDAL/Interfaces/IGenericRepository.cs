@@ -5,7 +5,7 @@ using BlackJackDAL.Entities;
 
 namespace BlackJackDAL.Interfaces
 {
-    public interface IGenericRepository<TEntity>:IDisposable where TEntity : class
+    public interface IGenericRepository<TEntity> : IDisposable where TEntity : class
     {
         IEnumerable<TEntity> GetAll();
         Task<IEnumerable<TEntity>> GetAllAsync();

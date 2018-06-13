@@ -43,17 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="History\GameHistoriesModelView.cs" />
-    <Compile Include="History\PlayerCardHistoryModelView.cs" />
-    <Compile Include="History\RoundPlayersModelView.cs" />
-    <Compile Include="Round\CardModelView.cs" />
-    <Compile Include="Round\InnerRoundViewModel.cs" />
-    <Compile Include="Round\PlayerCardModelView.cs" />
-    <Compile Include="Round\RoundModelView.cs" />
-    <Compile Include="Round\UserCardsModelView.cs" />
-    <Compile Include="Round\UserViewModel.cs" />
-    <Compile Include="Round\WinnerModelView.cs" />
-    <Compile Include="StartGame\InnerGameModel.cs" />
+    <Compile Include="HistoryViewModel\GameHistoriesViewModel.cs" />
+    <Compile Include="HistoryViewModel\PlayerCardHistoryViewModel.cs" />
+    <Compile Include="HistoryViewModel\RoundPlayersViewModel.cs" />
+    <Compile Include="RoundViewModel\CardViewModel.cs" />
+    <Compile Include="RoundViewModel\InnerRoundViewModel.cs" />
+    <Compile Include="RoundViewModel\PlayerCardViewModel.cs" />
+    <Compile Include="RoundViewModel\RoundViewModel.cs" />
+    <Compile Include="RoundViewModel\UserCardsViewModel.cs" />
+    <Compile Include="RoundViewModel\UserViewModel.cs" />
+    <Compile Include="RoundViewModel\WinnerViewModel.cs" />
+    <Compile Include="StartGame\InnerGameViewModel.cs" />
     <Compile Include="UserServiceModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

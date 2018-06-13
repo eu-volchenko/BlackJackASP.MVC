@@ -10,8 +10,8 @@ namespace BlackJackDAL.Repositories
 {
     public class HistoryRepository : DpGenericRepository<History>
     {
-        private static string _tableName = "Histories";
-        public HistoryRepository(string connectionString) : base(connectionString, _tableName)
+
+        public HistoryRepository() : base()
         {
         }
 

@@ -4,7 +4,7 @@
     var products;
     $.ajax({
         dataType: "json",
-        url: 'http://localhost:50220/api/History/GetGames'
+        url: 'http://localhost:59384/api/History/GetGames/'
     }).done(function (jsonList) {
         products = JSON.parse(jsonList);
         $("#grid").kendoGrid({
@@ -53,6 +53,7 @@
 
 });
 function ShowInfo(id) {
+    $('#info-round').empty();
     var detailsConteiner = $('.details-container');
     detailsConteiner.fadeIn("fast");
     detailsConteiner.css('z-index', 10);
@@ -62,7 +63,7 @@ function ShowInfo(id) {
     var rounds;
     $.ajax({
         dataType: "json",
-        url: 'http://localhost:50220/api/History/GetRounds',
+        url: 'http://localhost:59384/api/History/GetRounds',
         data: "gameId=" + id
     }).done(function (jsonRounds) {
         rounds = JSON.parse(jsonRounds);
@@ -109,7 +110,7 @@ function GameInfo(roundId, gameId) {
     $('#info-round').empty();
     $.ajax({
         dataType: "json",
-        url: 'http://localhost:50220/api/History/GetPlayers',
+        url: 'http://localhost:59384/api/History/GetPlayers',
         data: "gameId=" + gameId
     }).done(function (playersIdJson) {
         var playersId = JSON.parse(playersIdJson);
@@ -119,7 +120,7 @@ function GameInfo(roundId, gameId) {
             $.ajax(
                 {
                     dataType: "json",
-                    url: 'http://localhost:50220/api/History/GetPlayers',
+                    url: 'http://localhost:59384/api/History/GetPlayers',
                     data: "roundId=" + roundId + "&userId=" + playersId.PlayersId[i]
                 }).done(function (playerCardsIdJson) {
                     var playersCardId = JSON.parse(playerCardsIdJson);

@@ -57,8 +57,8 @@ C:\Users\Anuitex-84\source\repos\BlackJack\New folder\BlackJackDAL\bin\Debug\DbU
 C:\Users\Anuitex-84\source\repos\BlackJack\New folder\BlackJackDAL\bin\Debug\EntityFramework.xml
 C:\Users\Anuitex-84\source\repos\BlackJack\New folder\BlackJackDAL\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Anuitex-84\source\repos\BlackJack\New folder\BlackJackDAL\bin\Debug\NLog.xml
-C:\Users\Anuitex-84\source\repos\BlackJack\New folder\BlackJackDAL\obj\Debug\BlackJack.DAL.csprojResolveAssemblyReference.cache
 C:\Users\Anuitex-84\source\repos\BlackJack\New folder\BlackJackDAL\obj\Debug\BlackJack.DAL.csproj.CoreCompileInputs.cache
 C:\Users\Anuitex-84\source\repos\BlackJack\New folder\BlackJackDAL\obj\Debug\BlackJack.DAL.csproj.CopyComplete
 C:\Users\Anuitex-84\source\repos\BlackJack\New folder\BlackJackDAL\obj\Debug\BlackJackDAL.dll
 C:\Users\Anuitex-84\source\repos\BlackJack\New folder\BlackJackDAL\obj\Debug\BlackJackDAL.pdb
+C:\Users\Anuitex-84\source\repos\BlackJack\New folder\BlackJackDAL\obj\Debug\BlackJack.DAL.csprojResolveAssemblyReference.cache

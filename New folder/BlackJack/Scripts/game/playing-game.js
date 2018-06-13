@@ -17,7 +17,7 @@
     }
 
     var gameModel;
-    var url = 'http://localhost:50220/api/Game/Get';
+    var url = 'http://localhost:59384/api/Game/Get';
     $.ajax({
         dataType: "json",
         url: url,
@@ -38,7 +38,7 @@
         }
         $.ajax({
             dataType: "json",
-            url: 'http://localhost:50220/api/Game/CreateRound',
+            url: 'http://localhost:59384/api/Game/CreateRound',
             data: "gameId=" + gameId
         }).done(function(roundJson) {
             var round = JSON.parse(roundJson);
@@ -56,7 +56,7 @@
         var cardsForPlayer;
         $.ajax({
             dataType: "json",
-            url: 'http://localhost:50220/api/Game/GetCards',
+            url: 'http://localhost:59384/api/Game/GetCards',
             data: "idGame=" + gameId + "&nameUser=" + userName + "&roundId=" + idRound
         }).done(function(cardsForPlayerJson) {
             cardsForPlayer = JSON.parse(cardsForPlayerJson);
@@ -82,7 +82,7 @@
     $('#one-more').click(function() {
         $.ajax({
             dataType: "json",
-            url: 'http://localhost:50220/api/Game/OneMore',
+            url: 'http://localhost:59384/api/Game/OneMore',
             data: "gameId=" + gameId + "&userName=" + gameModel.PlayerName + "&roundId=" + idRound
         }).done(function(idCard) {
             cardId = JSON.parse(idCard);
@@ -98,7 +98,7 @@
         gameModel.Id = gameId;
         $.ajax({
             dataType: "json",
-            url: 'http://localhost:50220/api/Game/OneMoreBots',
+            url: 'http://localhost:59384/api/Game/OneMoreBots',
             data: "gameId=" + gameId + "&userName=" + gameModel.DealerName + "&roundId=" + idRound,
             type: "GET",
             contentType: 'application/json; charset=utf-8'
@@ -106,7 +106,7 @@
         for (var j = 0; j < gameModel.NumberOfBots; j++) {
             $.ajax({
                 dataType: "json",
-                url: 'http://localhost:50220/api/Game/OneMoreBots',
+                url: 'http://localhost:59384/api/Game/OneMoreBots',
                 data: "gameId=" + gameId + "&userName=" + gameModel.NameOfBots[j] + "&roundId=" + idRound,
                 contentType: 'application/json; charset=utf-8'
             });
@@ -115,7 +115,7 @@
         $('#menu').fadeIn('fast');
         $.ajax({
             dataType: "json",
-            url: 'http://localhost:50220/api/Game/FinishRound',
+            url: 'http://localhost:59384/api/Game/FinishRound',
             data: JSON.stringify(gameModel),
             type: "POST",
             contentType: 'application/json; charset=utf-8'
@@ -143,7 +143,7 @@
     });
 
     $('#one-more-round').click(function() {
-        window.location.replace("http://localhost:50220//Game/Game?id=" + gameId);
+        window.location.replace("http://localhost:59384//Game/Game?id=" + gameId);
     });
 
     $('#finish-game').click(function() {

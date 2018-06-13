@@ -14,23 +14,22 @@ using NLog;
 
 namespace BlackJackDAL.EF
 {
-    public class DpGenericRepository<TEntity> : IDpGenericRepository<TEntity> where TEntity : class
+    public class DpGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         private  IDbConnection _connection;
-        private readonly string _connectionString;
-        private readonly string _tableName;
-        public DpGenericRepository(string connectionString, string tableName)
+        private readonly string _connectionString = System.Configuration.ConfigurationManager.
+            ConnectionStrings["ContextDB"].ConnectionString;
+        public DpGenericRepository()
         {
-            _tableName = tableName;
-            _connectionString = connectionString;
+            _connection = new SqlConnection(_connectionString);
         }
 
-        public void Dispose()
+        public  void Dispose()
         {
             _connection.Dispose();
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public  IEnumerable<TEntity> GetAll()
         {
             IEnumerable<TEntity> listOfAll;
             using (_connection = new SqlConnection(_connectionString))
@@ -43,7 +42,7 @@ namespace BlackJackDAL.EF
             return listOfAll;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public  async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             try
             {
@@ -51,7 +50,7 @@ namespace BlackJackDAL.EF
                 using (_connection = new SqlConnection(_connectionString))
                 {
                     _connection.Open();
-                    listOfAll = await _connection.QueryAsync<TEntity>("SELECT * FROM " + _tableName);
+                    listOfAll = await _connection.GetAllAsync<TEntity>();
                     _connection.Close();
                 }
 
@@ -65,7 +64,7 @@ namespace BlackJackDAL.EF
             
         }
 
-        public TEntity Get(int id)
+        public  TEntity Get(int id)
         {
             TEntity entity;
             using (_connection = new SqlConnection(_connectionString))
@@ -78,7 +77,7 @@ namespace BlackJackDAL.EF
             return entity;
         }
 
-        public async Task<TEntity> GetAsync(int id)
+        public  async Task<TEntity> GetAsync(int id)
         {
             try
             {
@@ -100,7 +99,7 @@ namespace BlackJackDAL.EF
             
         }
 
-        public void Create(TEntity item)
+        public  void Create(TEntity item)
         {
                 using (_connection = new SqlConnection(_connectionString))
                 {
@@ -110,7 +109,7 @@ namespace BlackJackDAL.EF
                 }
         }
 
-        public async Task CreateAsync(TEntity item)
+        public  async Task CreateAsync(TEntity item)
         {
                 using (_connection = new SqlConnection(_connectionString))
                 {
@@ -119,8 +118,7 @@ namespace BlackJackDAL.EF
                     _connection.Close();
                 }
         }
-
-        public void Remove(TEntity item)
+        public  void Remove(TEntity item)
             {
                 using (_connection = new SqlConnection(_connectionString))
                 {
@@ -130,7 +128,7 @@ namespace BlackJackDAL.EF
                 }
             }
 
-            public async Task RemoveAsync(TEntity item)
+            public  async Task RemoveAsync(TEntity item)
             {
                 using (_connection = new SqlConnection(_connectionString))
                 {
@@ -140,7 +138,7 @@ namespace BlackJackDAL.EF
                 }
             }
 
-            public void Update(TEntity item)
+            public  void Update(TEntity item)
             {
                 using (_connection = new SqlConnection(_connectionString))
                 {
@@ -150,7 +148,7 @@ namespace BlackJackDAL.EF
                 }
             }
 
-            public async Task UpdateAsync(TEntity item)
+            public  async Task UpdateAsync(TEntity item)
             {
                 using (_connection = new SqlConnection(_connectionString))
                 {

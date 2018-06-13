@@ -10,10 +10,8 @@ namespace BlackJackDAL.Repositories
 {
     public class CardRepository:DpGenericRepository<Card>
     {
-        private static string _tableName = "Cards";
-        public CardRepository(string connectionString):base(connectionString, _tableName)
-        {
-            
+        public CardRepository( ):base()
+        { 
         }
     }
 }

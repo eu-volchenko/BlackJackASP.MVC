@@ -11,7 +11,7 @@ namespace BlackJack.BLL.Interfaces
 {
     public interface IRoundService
     {
-        Task<InnerGameModel> GetGameInfo(int id);
+        Task<InnerGameViewModel> GetGameInfo(int id);
 
         Task<UserCardsModelView> GetCardsForStartGame(int gameId, string userName, int idRound);
 

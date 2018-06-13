@@ -9,12 +9,12 @@ namespace BlackJack.BLL.Interfaces
 {
     public interface ICreateGameService
     {
-        Task AddBots(InnerGameModel gameData, int id);
+        Task AddBots(InnerGameViewModel gameData, int id);
 
-        Task AddPlayer(InnerGameModel gameData, int id);
+        Task AddPlayer(InnerGameViewModel gameData, int id);
 
-        int AddGame(InnerGameModel gamedata);
+        int AddGame(InnerGameViewModel gamedata);
 
-        Task AddDealer(InnerGameModel gameData, int id);
+        Task AddDealer(InnerGameViewModel gameData, int id);
     }
 }

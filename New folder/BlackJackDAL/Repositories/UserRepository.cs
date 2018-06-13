@@ -15,11 +15,11 @@ namespace BlackJackDAL.Repositories
     {
         private static string _tableName = "Users";
         private IDbConnection _connection;
-        private readonly string _connectionString;
-        public UserRepository(string connectionString) : base(connectionString, _tableName)
+        private readonly string _connectionString = System.Configuration.ConfigurationManager.
+            ConnectionStrings["ContextDB"].ConnectionString;
+        public UserRepository() : base()
         {
-            _connectionString = connectionString;
-           _connection = new SqlConnection(connectionString);
+           _connection = new SqlConnection(_connectionString);
         }
 
 
@@ -52,8 +52,7 @@ namespace BlackJackDAL.Repositories
                 using (_connection = new SqlConnection(_connectionString))
                 {
                     _connection.Open();
-                    user =  _connection.QuerySingle<User>(
-                        "SELECT * FROM " + _tableName + " WHERE GameId=@game AND Name=@Name",
+                    user =  _connection.QuerySingle<User>($"SELECT * FROM {_tableName} WHERE GameId=@game AND Name=@Name",
                         new {game = gameId, Name = userName});
                     _connection.Close();
                 }
