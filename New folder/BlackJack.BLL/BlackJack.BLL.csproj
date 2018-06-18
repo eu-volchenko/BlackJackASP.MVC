@@ -89,13 +89,17 @@
     <Compile Include="Services\RoundService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BlackJack.Utility\BlackJack.Utility.csproj">
+      <Project>{52BC2605-9A60-48D1-941F-A030456CEF02}</Project>
+      <Name>BlackJack.Utility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlackJackDAL\BlackJack.DAL.csproj">
       <Project>{1000e69d-708a-4e29-8337-8e3ba00dedeb}</Project>
       <Name>BlackJack.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ViewModel\BlackJack.ViewModel.csproj">
+    <ProjectReference Include="..\ViewModel\BlackJack.ViewModels.csproj">
       <Project>{565c47d1-0fb7-457a-9cc2-c048cbb82297}</Project>
-      <Name>BlackJack.ViewModel</Name>
+      <Name>BlackJack.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

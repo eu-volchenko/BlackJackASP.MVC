@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlackJack.BLL.DTO;
 using BlackJackDAL.Enums;
-using ViewModel.StartGame;
+using ViewModel.CreateGameViewModels;
 
 namespace BlackJack.BLL.Mapper
 {

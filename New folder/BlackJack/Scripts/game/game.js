@@ -31,13 +31,6 @@ $('#currency').change(function () {
 });
 
 function getBotNames () {
-    //var fieldsWithName = $("[id ^= 'botName']").length;
-    //var names = [];
-    //for (var i = 0; i < fieldsWithName; i++) {
-    //    names[i] = fieldsWithName[i].val();
-    //}
-    //return names;
-
     var names = [];
     var index = 0;
     $("[id ^= 'botName']").each(function(index) {

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlackJackDAL.Entities;
+using ViewModel.CreateGameViewModels;
 using ViewModel.Round;
-using ViewModel.StartGame;
+using ViewModel.RoundViewModels;
 
 namespace BlackJack.BLL.Interfaces
 {

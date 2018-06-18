@@ -10,28 +10,27 @@ using BlackJack.BLL.Common;
 using BlackJack.BLL.DTO;
 using BlackJack.BLL.Interfaces;
 using BlackJack.BLL.Mapper;
+using BlackJack.Utility.Utilities;
 using BlackJackDAL.EF;
 using BlackJackDAL.Entities;
 using BlackJackDAL.Enums;
 using BlackJackDAL.Interfaces;
 using BlackJackDAL.Repositories;
+using ViewModel.CreateGameViewModels;
 using ViewModel.Round;
-using ViewModel.StartGame;
+using ViewModel.RoundViewModels;
 
 namespace BlackJack.BLL.Services
 {
     public class RoundService : IRoundService
     {
-        private readonly string _connectionString =
-            System.Configuration.ConfigurationManager.ConnectionStrings["ContextDB"].ConnectionString;
-
         private readonly GameRepository _gameRepository;
         private readonly UserRepository _userRepository;
         private readonly IGenericRepository<Card> _cardRepository;
         private readonly IGenericRepository<Round> _roundRepository;
         private readonly IGenericRepository<UserCard> _userCardRepository;
         private readonly int maxCountOfPoints = 21;
-
+        private readonly int userDefaultWin = 4;
         public RoundService(IGenericRepository<Card> cardRepository, IGenericRepository<UserCard> userCardRepository, IGenericRepository<Round> roundRepository)
         {
             _gameRepository = new GameRepository();
@@ -61,47 +60,65 @@ namespace BlackJack.BLL.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                LogWriter.WriteLog(e.Message, "RoundService");
+                return null;
             }
 
         }
 
         public async Task<UserCardsModelView> GetCardsForStartGame(int gameId, string userName, int idRound)
         {
-            
-            var user = _userRepository.GetUserByNameAndGame(gameId, userName);
-            var userCards = new UserCardsModelView();
-            userCards.UserId = user.Id;
-            for (int i = 0; i < 2; i++)
+            try
             {
-                var random = Randomizer.RandomId();
-                var cardForUser = _cardRepository.Get(random);
-                userCards.UserCardsId.Add(cardForUser.Id);
-                var userCard = new UserCard();
-                userCard.CardId = cardForUser.Id;
-                userCard.UserId = user.Id;
-                userCard.RoundId = idRound;
-                await _userCardRepository.CreateAsync(userCard);
-                Thread.Sleep(100);
+                int countsCardsInStartGame = 2;
+                var user = _userRepository.GetUserByNameAndGame(gameId, userName);
+                var userCards = new UserCardsModelView();
+                userCards.UserId = user.Id;
+                for (int i = 0; i < countsCardsInStartGame; i++)
+                {
+                    var random = Randomizer.RandomId();
+                    var cardForUser = _cardRepository.Get(random);
+                    userCards.UserCardsId.Add(cardForUser.Id);
+                    var userCard = new UserCard();
+                    userCard.CardId = cardForUser.Id;
+                    userCard.UserId = user.Id;
+                    userCard.RoundId = idRound;
+                    await _userCardRepository.CreateAsync(userCard);
+                    Thread.Sleep(100);
+                }
+                return userCards;
             }
-            return userCards;   
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "RoundService");
+                return null;
+            }
+          
         }
 
         public async Task<RoundModelView> CreateRound(int gameId)
         {
-            var rounds = _roundRepository.GetAll().Where(x => x.GameId == gameId).ToList();
-            int roundsCount = rounds.Count();
-            var createRound = new Round();
-            createRound.GameId = gameId;
-            createRound.RoundInGame = ++roundsCount;
-            createRound.UserId = 4;
-            await _roundRepository.CreateAsync(createRound);
-            var roundModelView = new RoundModelView();
-            roundModelView.Id = createRound.Id;
-            roundModelView.GameId = createRound.GameId;
-            roundModelView.RoundInGame = createRound.RoundInGame;
-            return roundModelView;
+            try
+            {
+                var rounds = _roundRepository.GetAll().Where(x => x.GameId == gameId).ToList();
+                int roundsCount = rounds.Count();
+                var createRound = new Round();
+                createRound.GameId = gameId;
+                createRound.RoundInGame = ++roundsCount;
+                createRound.UserId = userDefaultWin;
+                await _roundRepository.CreateAsync(createRound);
+                var roundModelView = new RoundModelView();
+                roundModelView.Id = createRound.Id;
+                roundModelView.GameId = createRound.GameId;
+                roundModelView.RoundInGame = createRound.RoundInGame;
+                return roundModelView;
+            }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "RoundService");
+                return null; 
+            }
+            
         }
 
        
@@ -121,23 +138,41 @@ namespace BlackJack.BLL.Services
 
         public UserViewModel GetUser(int idGame, string userName)
         {
-            var user = _userRepository.GetUserByNameAndGame(idGame, userName);
-            var userModelView = new UserViewModel();
-            userModelView.Id = user.Id;
-            userModelView.Name = user.Name;
-            userModelView.Type = user.TypeId;
-            return userModelView;
+            try
+            {
+                var user = _userRepository.GetUserByNameAndGame(idGame, userName);
+                var userModelView = new UserViewModel();
+                userModelView.Id = user.Id;
+                userModelView.Name = user.Name;
+                userModelView.Type = user.TypeId;
+                return userModelView;
+            }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "RoundService");
+                return null;
+            }
+            
         }
 
         public async Task<int> GetCard(UserViewModel userModelView,int roundId)
         {
-            var cardId = Randomizer.RandomId();
-            var userCard = new UserCard();
-            userCard.CardId = cardId;
-            userCard.UserId = userModelView.Id;
-            userCard.RoundId = roundId;
-            await _userCardRepository.CreateAsync(userCard);
-            return cardId;
+            try
+            {
+                var cardId = Randomizer.RandomId();
+                var userCard = new UserCard();
+                userCard.CardId = cardId;
+                userCard.UserId = userModelView.Id;
+                userCard.RoundId = roundId;
+                await _userCardRepository.CreateAsync(userCard);
+                return cardId;
+            }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "RoundService");
+                return 0;
+            }
+            
         }
 
         public async Task<WinnerModelView> LearnTheWinner(InnerRoundViewModel model)
@@ -206,36 +241,53 @@ namespace BlackJack.BLL.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                LogWriter.WriteLog(ex.Message, "RoundService");
+                return null;
             }
         }
 
         public async Task GetCardsForBots(UserViewModel userViewModel, int roundId)
         {
-            var userCards = _userCardRepository.GetAll()
-                .Where(x => x.RoundId == roundId && x.UserId == userViewModel.Id).ToList();
-            var userPoints = PointCount(userCards);
-            while (userPoints < 17)
+            try
             {
-                var randomCard = Randomizer.RandomId();
-                var userCard = new UserCard();
-                userCard.CardId = randomCard;
-                userCard.UserId = userViewModel.Id;
-                userCard.RoundId = roundId;
-                await _userCardRepository.CreateAsync(userCard);
-                userPoints +=  _cardRepository.Get(randomCard).Cost;
+                var userCards = _userCardRepository.GetAll()
+                    .Where(x => x.RoundId == roundId && x.UserId == userViewModel.Id).ToList();
+                var userPoints = PointCount(userCards);
+                while (userPoints < 17)
+                {
+                    var randomCard = Randomizer.RandomId();
+                    var userCard = new UserCard();
+                    userCard.CardId = randomCard;
+                    userCard.UserId = userViewModel.Id;
+                    userCard.RoundId = roundId;
+                    await _userCardRepository.CreateAsync(userCard);
+                    userPoints += _cardRepository.Get(randomCard).Cost;
+                }
             }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "RoundService");
+            }
+            
         }
 
         private List<int> getWinnerCards(IEnumerable<UserCard> userCards)
         {
-            var cards = new List<int>();
-            foreach (var userCard in userCards)
+            try
             {
-                cards.Add(userCard.CardId);
+                var cards = new List<int>();
+                foreach (var userCard in userCards)
+                {
+                    cards.Add(userCard.CardId);
+                }
+                return cards;
             }
-            return cards;
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "RoundService");
+                return null;
+            }
+            
         }
 
         private int PointCount(IEnumerable<UserCard> userCards)

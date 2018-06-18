@@ -6,8 +6,10 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using BlackJack.BLL.Interfaces;
+using BlackJack.Utility.Utilities;
 using Newtonsoft.Json;
 using ViewModel.History;
+using ViewModel.HistoryViewModels;
 
 namespace BlackJack.WebApiNew.Controllers
 {
@@ -26,8 +28,17 @@ namespace BlackJack.WebApiNew.Controllers
         [Route("GetGames")]
         public async Task<string> GetAllGames()
         {
-            List<GameHistoriesModelView> innerGameModels = await _historyService.GetGames();
-            return JsonConvert.SerializeObject(innerGameModels);
+            try
+            {
+                List<GameHistoriesModelView> innerGameModels = await _historyService.GetGames();
+                return JsonConvert.SerializeObject(innerGameModels);
+            }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "HistoryApiController");
+                throw;
+            }
+           
         }
 
 
@@ -35,8 +46,17 @@ namespace BlackJack.WebApiNew.Controllers
         [Route("GetRounds")]
         public string GetRounds(int gameId)
         {
-            var rounds = _historyService.GetRounds(gameId);
-            return JsonConvert.SerializeObject(rounds);
+            try
+            {
+                var rounds = _historyService.GetRounds(gameId);
+                return JsonConvert.SerializeObject(rounds);
+            }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "HistoryApiController");
+                throw;
+            }
+        
         }
 
 
@@ -44,16 +64,34 @@ namespace BlackJack.WebApiNew.Controllers
         [Route("GetPlayers")]
         public string GetPlayers(int gameId)
         {
-            var playersId = _historyService.GetPlayers(gameId);
-            return JsonConvert.SerializeObject(playersId);
+            try
+            {
+                var playersId = _historyService.GetPlayers(gameId);
+                return JsonConvert.SerializeObject(playersId);
+            }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "HistoryApiController");
+                throw;
+            }
+            
         }
 
         [HttpGet]
         [Route("GetPlayers")]
         public async Task<string> GetPlayersCards(int roundId, int userId)
         {
-            var playersCards = await _historyService.GetPlayersCards(roundId, userId);
-            return JsonConvert.SerializeObject(playersCards);
+            try
+            {
+                var playersCards = await _historyService.GetPlayersCards(roundId, userId);
+                return JsonConvert.SerializeObject(playersCards);
+            }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "HistoryApiController");
+                throw;
+            }
+            
         }
     }
 }

@@ -8,7 +8,8 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using BlackJack.BLL.Interfaces;
-using ViewModel.StartGame;
+using BlackJack.Utility.Utilities;
+using ViewModel.CreateGameViewModels;
 
 namespace BlackJack.WebApiNew.Controllers
 {
@@ -31,15 +32,20 @@ namespace BlackJack.WebApiNew.Controllers
             [Route("Create")]
             public async Task<HttpResponseMessage> Create([FromBody] InnerGameViewModel gameModel)
             {
-                int id = _createGameService.AddGame(gameModel);
-                await _createGameService.AddBots(gameModel, id);
-                await _createGameService.AddDealer(gameModel, id);
-                await _createGameService.AddPlayer(gameModel, id);
-
-
-                //await Task.WhenAll(taskAddPlayer, taskaAddDealer);
-                string url = "http://localhost:50220/Game/Game?id=" + id;
-                return Request.CreateResponse(HttpStatusCode.OK, id);
+                try
+                {
+                    int id = _createGameService.AddGame(gameModel);
+                    await _createGameService.AddBots(gameModel, id);
+                    await _createGameService.AddDealer(gameModel, id);
+                    await _createGameService.AddPlayer(gameModel, id);
+                    string url = "http://localhost:50220/Game/Game?id=" + id;
+                    return Request.CreateResponse(HttpStatusCode.OK, id);
+                }
+                catch (Exception e)
+                {
+                    LogWriter.WriteLog(e.Message, "CreateGameApiController");
+                    throw;
+                }
             }
         }
     }

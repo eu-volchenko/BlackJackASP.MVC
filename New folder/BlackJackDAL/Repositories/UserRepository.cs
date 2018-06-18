@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlackJack.Utility.Utilities;
 using BlackJackDAL.EF;
 using BlackJackDAL.Entities;
 using Dapper;
@@ -37,8 +38,8 @@ namespace BlackJackDAL.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                LogWriter.WriteLog(e.Message, "UserRepository");
+                return null;
             }
            
             

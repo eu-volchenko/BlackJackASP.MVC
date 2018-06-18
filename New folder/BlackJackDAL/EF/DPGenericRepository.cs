@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Threading.Tasks;
-using BlackJackDAL.Entities;
+using BlackJack.Utility.Utilities;
 using BlackJackDAL.Interfaces;
-using Dapper;
 using Dapper.Contrib.Extensions;
-using NLog;
 
 
 namespace BlackJackDAL.EF
 {
     public class DpGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        private  IDbConnection _connection;
+        private IDbConnection _connection;
         private readonly string _connectionString = System.Configuration.ConfigurationManager.
             ConnectionStrings["ContextDB"].ConnectionString;
         public DpGenericRepository()
@@ -24,25 +20,34 @@ namespace BlackJackDAL.EF
             _connection = new SqlConnection(_connectionString);
         }
 
-        public  void Dispose()
+        public void Dispose()
         {
             _connection.Dispose();
         }
 
-        public  IEnumerable<TEntity> GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
-            IEnumerable<TEntity> listOfAll;
-            using (_connection = new SqlConnection(_connectionString))
+            try
             {
-                _connection.Open();
-                listOfAll = _connection.GetAll<TEntity>();
-                _connection.Close();
+                IEnumerable<TEntity> listOfAll;
+                using (_connection = new SqlConnection(_connectionString))
+                {
+                    _connection.Open();
+                    listOfAll = _connection.GetAll<TEntity>();
+                    _connection.Close();
+                }
+
+                return listOfAll;
+            }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "DpGenericRepository");
+                return null;
             }
 
-            return listOfAll;
         }
 
-        public  async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             try
             {
@@ -58,26 +63,35 @@ namespace BlackJackDAL.EF
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                LogWriter.WriteLog(e.Message, "DpGenericRepository");
+                return null;
             }
-            
+
         }
 
-        public  TEntity Get(int id)
+        public TEntity Get(int id)
         {
-            TEntity entity;
-            using (_connection = new SqlConnection(_connectionString))
+            try
             {
-                _connection.Open();
-                entity = _connection.Get<TEntity>(id);
-                _connection.Close();
+                TEntity entity;
+                using (_connection = new SqlConnection(_connectionString))
+                {
+                    _connection.Open();
+                    entity = _connection.Get<TEntity>(id);
+                    _connection.Close();
+                }
+
+                return entity;
+            }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "DpGenericRepository");
+                return null;
             }
 
-            return entity;
         }
 
-        public  async Task<TEntity> GetAsync(int id)
+        public async Task<TEntity> GetAsync(int id)
         {
             try
             {
@@ -93,32 +107,51 @@ namespace BlackJackDAL.EF
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                LogWriter.WriteLog(e.Message, "DpGenericRepository");
+                return null;
             }
-            
+
         }
 
-        public  void Create(TEntity item)
+        public void Create(TEntity item)
         {
+            try
+            {
                 using (_connection = new SqlConnection(_connectionString))
                 {
                     _connection.Open();
                     _connection.Insert(item);
                     _connection.Close();
                 }
+            }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "DpGenericRepository");
+            }
+
         }
 
-        public  async Task CreateAsync(TEntity item)
+        public async Task CreateAsync(TEntity item)
         {
+            try
+            {
                 using (_connection = new SqlConnection(_connectionString))
                 {
                     _connection.Open();
                     await _connection.InsertAsync(item);
                     _connection.Close();
                 }
+            }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "DpGenericRepository");
+                
+            }
+
         }
-        public  void Remove(TEntity item)
+        public void Remove(TEntity item)
+        {
+            try
             {
                 using (_connection = new SqlConnection(_connectionString))
                 {
@@ -127,8 +160,17 @@ namespace BlackJackDAL.EF
                     _connection.Open();
                 }
             }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "DpGenericRepository");
+                
+            }
 
-            public  async Task RemoveAsync(TEntity item)
+        }
+
+        public async Task RemoveAsync(TEntity item)
+        {
+            try
             {
                 using (_connection = new SqlConnection(_connectionString))
                 {
@@ -137,8 +179,17 @@ namespace BlackJackDAL.EF
                     _connection.Close();
                 }
             }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "DpGenericRepository");
+                
+            }
 
-            public  void Update(TEntity item)
+        }
+
+        public void Update(TEntity item)
+        {
+            try
             {
                 using (_connection = new SqlConnection(_connectionString))
                 {
@@ -147,37 +198,32 @@ namespace BlackJackDAL.EF
                     _connection.Close();
                 }
             }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "DpGenericRepository");
+                
+            }
 
-            public  async Task UpdateAsync(TEntity item)
+        }
+
+        public async Task UpdateAsync(TEntity item)
+        {
+            try
             {
                 using (_connection = new SqlConnection(_connectionString))
                 {
                     _connection.Open();
                     await _connection.UpdateAsync(item);
-                _connection.Close();
+                    _connection.Close();
                 }
             }
-
-            public IEnumerable<TEntity> GetSomeEntities(Func<TEntity, bool> predicat)
+            catch (Exception e)
             {
-                //using (_connection)
-                //{
-                //    Task<IEnumerable<TEntity>> listOfAll = _connection.GetAllAsync<TEntity>();
-                //    Task<IEnumerable<TEntity>> listEntities = SortAllEntities(predicat, listOfAll);
-                //    return listEntities.Result;
-                //}
-                throw new NotImplementedException();
+                LogWriter.WriteLog(e.Message, "DpGenericRepository");
+                
             }
-
             
-
-            //private async Task<IEnumerable<TEntity>> SortAllEntities(Func<TEntity, bool> predicat,
-            //    Task<IEnumerable<TEntity>> allEntities)
-            //{
-            //    IEnumerable<TEntity> listOfAll = allEntities.Result;
-            //    IEnumerable<TEntity> needEntities = listOfAll.Where(predicat).ToList();
-            //    return needEntities;
-            //}
         }
-
     }
+
+}

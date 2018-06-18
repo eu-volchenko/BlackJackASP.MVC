@@ -2795,9 +2795,9 @@
       <Project>{1000e69d-708a-4e29-8337-8e3ba00dedeb}</Project>
       <Name>BlackJack.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ViewModel\BlackJack.ViewModel.csproj">
+    <ProjectReference Include="..\ViewModel\BlackJack.ViewModels.csproj">
       <Project>{565C47D1-0FB7-457A-9CC2-C048CBB82297}</Project>
-      <Name>BlackJack.ViewModel</Name>
+      <Name>BlackJack.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

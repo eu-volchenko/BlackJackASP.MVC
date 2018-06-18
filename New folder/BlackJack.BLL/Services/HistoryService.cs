@@ -5,13 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlackJack.BLL.Interfaces;
+using BlackJack.Utility.Utilities;
 using BlackJackDAL.EF;
 using BlackJackDAL.Entities;
 using BlackJackDAL.Interfaces;
 using BlackJackDAL.Repositories;
 using ViewModel.History;
+using ViewModel.HistoryViewModels;
 using ViewModel.Round;
-using ViewModel.StartGame;
+using ViewModel.RoundViewModels;
 
 namespace BlackJack.BLL.Services
 {
@@ -39,63 +41,99 @@ namespace BlackJack.BLL.Services
 
         public async Task<List<GameHistoriesModelView>> GetGames()
         {
-            var gameHistorieses = new List<GameHistoriesModelView>();
-            var listOfHistories = await _historyRepository.GetAllAsync();
-            foreach (var history in listOfHistories)
+            try
             {
-                var game = await _gameRepository.GetAsync(history.GameId);
-                var gameHistory = new GameHistoriesModelView();
-                gameHistory.DateTimeGame = history.LogDateTime;
-                gameHistory.CountOfBots = game.NumberOfPlayers - countUsersWithoutBots;
-                gameHistory.Id = game.Id;
-                gameHistorieses.Add(gameHistory);
+                var gameHistorieses = new List<GameHistoriesModelView>();
+                var listOfHistories = await _historyRepository.GetAllAsync();
+                foreach (var history in listOfHistories)
+                {
+                    var game = await _gameRepository.GetAsync(history.GameId);
+                    var gameHistory = new GameHistoriesModelView();
+                    gameHistory.DateTimeGame = history.LogDateTime;
+                    gameHistory.CountOfBots = game.NumberOfPlayers - countUsersWithoutBots;
+                    gameHistory.Id = game.Id;
+                    gameHistorieses.Add(gameHistory);
+                }
+                return gameHistorieses;
             }
-            return gameHistorieses;
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "HistoryService");
+                return null;
+            }
+           
         }
 
         public List<RoundModelView> GetRounds(int gameId)
         {
-            var roundsInGame = _roundRepository.GetAll().Where(round => round.GameId == gameId).ToList();
-            var roundsList = new List<RoundModelView>();
-            foreach (var currentRound in roundsInGame)
+            try
             {
-                var round = new RoundModelView();
-                round.Id = currentRound.Id;
-                round.GameId = gameId;
-                round.RoundInGame = currentRound.RoundInGame;
-                round.WinnerName = _userRepository.Get(currentRound.UserId).Name;
-                roundsList.Add(round);
+                var roundsInGame = _roundRepository.GetAll().Where(round => round.GameId == gameId).ToList();
+                var roundsList = new List<RoundModelView>();
+                foreach (var currentRound in roundsInGame)
+                {
+                    var round = new RoundModelView();
+                    round.Id = currentRound.Id;
+                    round.GameId = gameId;
+                    round.RoundInGame = currentRound.RoundInGame;
+                    round.WinnerName = _userRepository.Get(currentRound.UserId).Name;
+                    roundsList.Add(round);
+                }
+                return roundsList;
             }
-            return roundsList;
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "HistoryService");
+                return null;
+            }
+            
         }
 
         public RoundPlayersModelView GetPlayers(int gameId)
         {
-            var playersInGame = _userRepository.GetAll().Where(player => player.GameId == gameId).ToList();
-            var playersId = new List<int>();
-            foreach (var user in playersInGame)
+            try
             {
-                playersId.Add(user.Id);
+                var playersInGame = _userRepository.GetAll().Where(player => player.GameId == gameId).ToList();
+                var playersId = new List<int>();
+                foreach (var user in playersInGame)
+                {
+                    playersId.Add(user.Id);
+                }
+                var roundPlayers = new RoundPlayersModelView();
+                roundPlayers.PlayersId = playersId;
+                return roundPlayers;
             }
-            var roundPlayers = new RoundPlayersModelView();
-            roundPlayers.PlayersId = playersId;
-            return roundPlayers;
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "HistoryService");
+                return null;
+            }
+           
         }
 
         public async Task<PlayerCardHistoryModelView> GetPlayersCards(int roundId, int userId)
         {
-            var user = await _userRepository.GetAsync(userId);
-            var cards = _userCardRepository.GetAll().Where(player => player.UserId == userId && player.RoundId == roundId).ToList();
-            var cardsList = new List<int>();
-            foreach (var userCard in cards)
+            try
             {
-                cardsList.Add(userCard.CardId);
-            }
+                var user = await _userRepository.GetAsync(userId);
+                var cards = _userCardRepository.GetAll().Where(player => player.UserId == userId && player.RoundId == roundId).ToList();
+                var cardsList = new List<int>();
+                foreach (var userCard in cards)
+                {
+                    cardsList.Add(userCard.CardId);
+                }
 
-            var playerCardHistoryModelView = new PlayerCardHistoryModelView();
-            playerCardHistoryModelView.PlayerName = user.Name;
-            playerCardHistoryModelView.CardsId = cardsList;
-            return playerCardHistoryModelView;
+                var playerCardHistoryModelView = new PlayerCardHistoryModelView();
+                playerCardHistoryModelView.PlayerName = user.Name;
+                playerCardHistoryModelView.CardsId = cardsList;
+                return playerCardHistoryModelView;
+            }
+            catch (Exception e)
+            {
+                LogWriter.WriteLog(e.Message, "HistoryService");
+                return null;
+            }
+            
         }
     }
 }
